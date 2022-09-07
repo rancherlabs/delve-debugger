@@ -2,7 +2,7 @@
 
 Debug your golang app running inside k8s.
 
-Attaches an ephemeral container with Delve to your process/container/pod.
+Attaches an ephemeral container with [Delve](https://github.com/go-delve/delve) to your process/container/pod.
 
 ## Running
 
