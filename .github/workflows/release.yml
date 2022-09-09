@@ -9,6 +9,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Read Versions File
+        id: versions
+        uses: falti/dotenv-action@v0.2.8
+        with:
+          path: versions
+          log-variables: true
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -26,8 +32,8 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           build-args: |
-            GO_VERSION=1.18
-            DLV_VERSION=${{ github.ref_name }}
+            GO_VERSION=${{ steps.versions.outputs.go_version }}
+            DLV_VERSION=${{ steps.versions.outputs.dlv_version }}
           tags: |
-            ghcr.io/${{ github.repository }}:${{ github.ref_name }}
+            ghcr.io/${{ github.repository }}:${{ steps.versions.outputs.dlv_version }}-${{ steps.versions.outputs.delve_debugger_version }}
             ghcr.io/${{ github.repository }}:latest

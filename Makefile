@@ -1,6 +1,4 @@
-GO_VERSION=1.18
-DLV_VERSION=1.9.1
-DELVE_DEBUGGER_VERSION=1
+include versions
 
 IMAGE_NAME=ghcr.io/moio/delve-debugger
 
