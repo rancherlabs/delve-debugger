@@ -29,3 +29,7 @@ Enjoy breakpoints, watches and stack inspection!
 
  - have `kubectl` available
  - use k8s >= v1.18
+
+## Rancher projects
+
+Specific instructions to run against Rancher, fleet and other Rancher components are in the `util` directory.
