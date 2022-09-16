@@ -12,5 +12,5 @@ PORT_FORWARDING_PID=$!
 echo `tput bold`
 echo 'Please wait for the line "debug layer=debugger continuing" to appear...'
 echo `tput sgr0`
-kubectl --namespace $1 debug -it pod/$2 --image=ghcr.io/moio/delve-debugger:1.9.1-1 --target=$3 --env="[EXECUTABLE=$4]"
+kubectl --namespace $1 debug -it pod/$2 --image=ghcr.io/moio/delve-debugger:$DLV_VERSION-DELVE_DEBUGGER_VERSION --target=$3 --env="[EXECUTABLE=$4]"
 kill ${PORT_FORWARDING_PID}
