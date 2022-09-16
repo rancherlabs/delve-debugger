@@ -1,8 +1,8 @@
-# Delve in Kubernetes
+# Delve in Kubernetes and Docker
 
-Debug your golang app running inside k8s.
+Debug your golang app running inside k8s or Docker
 
-Attaches an ephemeral container with [Delve](https://github.com/go-delve/delve) to your process/container/pod.
+_(attaching an ephemeral container with [Delve](https://github.com/go-delve/delve) inside)_
 
 ## Usage: ad-hoc guides
 
@@ -25,14 +25,21 @@ For other use cases follow instructions below.
  -ldflags '-s -w'
  ```
 
+For Kubernetes:
 - have `kubectl` available
 - use k8s >= v1.18
 
 
 ### Running
 
+For Kubernetes:
 ```
 ./delve-debugger.sh <NAMESPACE> <POD> <CONTAINER> <EXECUTABLE>
+```
+
+For Docker:
+```
+./delve-debugger-docker.sh <CONTAINER> <EXECUTABLE>
 ```
 
 This will open local port 4000, which you can attach to from GoLand.
