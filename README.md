@@ -4,7 +4,7 @@ Debug your golang app running inside k8s.
 
 Attaches an ephemeral container with [Delve](https://github.com/go-delve/delve) to your process/container/pod.
 
-## Usage
+## Usage: ad-hoc guides
 
 Ad-hoc guides are provided for some projects:
 - [Rancher](docs/guides/README-rancher.md)
@@ -12,14 +12,15 @@ Ad-hoc guides are provided for some projects:
 
 For other use cases follow instructions below.
 
-### General Requirements
+## Usage: general
 
-- binary to debug **should** be compiled using `go build` with the following options (that disable optimizations):
+### Requirements
+- the binary to debug **should** be compiled using `go build` with the following options (that disable optimizations):
 ```
 -gcflags='all=-N -l'
 ```
 
-- binary to debug **must not** be compiled with the following options (that strip symbols):
+- the binary to debug **must not** be compiled with the following options (that strip symbols):
  ```
  -ldflags '-s -w'
  ```
@@ -28,7 +29,7 @@ For other use cases follow instructions below.
 - use k8s >= v1.18
 
 
-### General running instructions
+### Running
 
 ```
 ./delve-debugger.sh <NAMESPACE> <POD> <CONTAINER> <EXECUTABLE>
@@ -39,6 +40,3 @@ This will open local port 4000, which you can attach to from GoLand.
 ![GoLand configuration screen](./docs/GoLand_config.png)
 
 Enjoy breakpoints, watches and stack inspection!
-
-
-
