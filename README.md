@@ -16,6 +16,12 @@ This will open local port 4000, which you can attach to from GoLand.
 
 Enjoy breakpoints, watches and stack inspection!
 
+## Project-specific guides
+
+More specific guides are provided for some projects in the [guides](docs/guides/) directory:
+ - [Rancher](docs/guides/README-rancher.md)
+ - [Rancher fleet](docs/guides/README-fleet.md)
+
 ## Requirements
  - binary to debug **should** be compiled using `go build` with the following options (that disable optimizations):
 ```
@@ -29,7 +35,3 @@ Enjoy breakpoints, watches and stack inspection!
 
  - have `kubectl` available
  - use k8s >= v1.18
-
-## Rancher projects
-
-Specific instructions to run against Rancher, fleet and other Rancher components are in the `util` directory.

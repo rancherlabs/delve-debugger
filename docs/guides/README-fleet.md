@@ -17,6 +17,7 @@ DEBUG=true TAG=$VERSION make
 ```
 
 NOTE: currently make support for debug symbols is under review: https://github.com/rancher/fleet/pull/961
+A 0.3.9 fork with the patch is available here: https://github.com/moio/fleet/tree/v0.3.9-dbg
 
 6. either push built images onto a registry, or import them into your cluster nodes manually. If you are using [k3d](https://k3d.io):
 
@@ -78,3 +79,4 @@ k3d image import --mode direct --cluster $CLUSTER rancher/gitjob:$GITJOB_VERSION
 cd ../fleet
 helm -n cattle-fleet-system upgrade --version $VERSION --reuse-values --set gitjob.gitjob.tag=$GITJOB_VERSION fleet ./dist/artifacts/fleet-$VERSION.tgz
 ```
+
