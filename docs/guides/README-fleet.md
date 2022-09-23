@@ -16,7 +16,7 @@ export VERSION=100.0.4-dbg
 DEBUG=true TAG=$VERSION make
 ```
 
-NOTE: currently make support for debug symbols is under review: https://github.com/rancher/fleet/pull/961
+NOTE: currently make support for debug symbols is available on the `master` branch
 A 0.3.9 fork with the patch is available here: https://github.com/moio/fleet/tree/v0.3.9-dbg
 
 6. either push built images onto a registry, or import them into your cluster nodes manually. If you are using [k3d](https://k3d.io):
