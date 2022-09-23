@@ -9,6 +9,7 @@ _(attaching an ephemeral container with [Delve](https://github.com/go-delve/delv
 Ad-hoc guides are provided for some projects:
 - [Rancher](docs/guides/README-rancher.md)
 - [Rancher fleet](docs/guides/README-fleet.md) and its components
+- [k3d](docs/guides/README-k3d.md) ([k3s](https://k3s.io/) in Docker)
 
 For other use cases follow instructions below.
 
