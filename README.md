@@ -43,7 +43,7 @@ For Docker:
 ./delve-debugger-docker.sh <CONTAINER> <EXECUTABLE>
 ```
 
-This will open local port 4000, which you can attach to from GoLand.
+This will open local port 4000, which you can attach to from GoLand. If you need a port other than 4000, add the number as the last parameter.
 
 ![GoLand configuration screen](./docs/GoLand_config.png)
 
