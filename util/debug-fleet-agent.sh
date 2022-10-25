@@ -1,7 +1,11 @@
 #!/bin/sh
 set -e
 
-NAMESPACE=cattle-fleet-local-system
+if kubectl get ns | grep cattle-fleet-local-system; then
+  NAMESPACE=cattle-fleet-local-system
+else
+  NAMESPACE=fleet-system
+fi
 POD=$(kubectl --namespace ${NAMESPACE} get pod --selector='app=fleet-agent' --output jsonpath="{.items[0].metadata.name}")
 CONTAINER=fleet-agent
 EXECUTABLE=fleetagent
