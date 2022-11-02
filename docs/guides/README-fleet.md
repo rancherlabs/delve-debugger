@@ -18,7 +18,7 @@ helm --namespace $NAMESPACE list
 ```
 cd fleet
 export VERSION=100.0.4-dbg
-DEBUG=true TAG=$VERSION make
+DEBUG=true TAG=$VERSION make build package
 ```
 
 NOTE: currently make support for debug symbols is available on the `master` branch
