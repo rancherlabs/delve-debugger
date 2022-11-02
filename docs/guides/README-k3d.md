@@ -8,7 +8,7 @@ cd k3s
 DEBUG=true make
 ```
 
-NOTE: currently make support for debug symbols is under review: https://github.com/k3s-io/k3s/pull/6147
+NOTE: currently make support for debug symbols is available on the `master` branch.
 
 A v1.23.6-rc4+k3s1 fork with the patch is available here: https://github.com/moio/k3s/tree/v1.23.6-rc4+k3s1-dbg
 
