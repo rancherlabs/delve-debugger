@@ -58,7 +58,7 @@ After following instructions above:
 9. determine the current **image** version (eg. `v0.1.26`):
 
 ```shell
-kubectl --namespace cattle-fleet-system describe deployment gitjob | grep Image
+kubectl --namespace $NAMESPACE describe deployment gitjob | grep Image
 ```
 
 10. determine a new version for the component debug deployment (eg. `v0.1.26-dbg`)
@@ -82,5 +82,5 @@ k3d image import --mode direct --cluster $CLUSTER rancher/gitjob:$GITJOB_VERSION
 
 ```shell
 cd ../fleet
-helm -n cattle-fleet-system upgrade --version $VERSION --reuse-values --set gitjob.gitjob.tag=$GITJOB_VERSION fleet ./dist/artifacts/fleet-$VERSION.tgz
+helm -n $NAMESPACE upgrade --version $VERSION --reuse-values --set gitjob.gitjob.tag=$GITJOB_VERSION --set gitjob.debug=true fleet ./dist/artifacts/fleet-$VERSION.tgz
 ```
