@@ -48,3 +48,12 @@ This will open local port 4000, which you can attach to from GoLand. If you need
 ![GoLand configuration screen](./docs/GoLand_config.png)
 
 Enjoy breakpoints, watches and stack inspection!
+
+### Troubleshooting
+
+**Q**: I get the error:
+```
+Could not attach to pid 1: this could be caused by a kernel security setting, try writing "0" to /proc/sys/kernel/yama/ptrace_scope
+```
+
+**A**: `/proc/sys/kernel/yama/ptrace_scope` is a host (node) kernel setting, its default value depends on your distro and configuration. You can change it as suggested via `echo 0 >/proc/sys/kernel/yama/ptrace_scope` as `root` on the node running the delve pod. If you do not have `root` shell access to the node but can run privileged containers, please [refer to these instructions](https://gist.github.com/moio/97c55fd742f407e294d370e4f4876f96).
