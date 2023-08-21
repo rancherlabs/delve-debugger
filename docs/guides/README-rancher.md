@@ -3,16 +3,16 @@
 In order to debug Rancher it is first necessary to recompile it with debug symbols.
 
 1. install Rancher as usual
-2. determine the current app version (eg. `v2.6.5`):
+2. determine the current app version (eg. `v2.7.5`):
 ```
 helm --namespace cattle-system list
 ```
-4. determine the new version for the component debug deployment (eg. `v2.6.5-dbg`)
+4. determine the new version for the component debug deployment (eg. `v2.7.5-dbg`)
 5. recompile with debugging symbols, eg.
 
 ```
 cd rancher
-export VERSION=v2.6.5-dbg
+export VERSION=v2.7.5-dbg
 DEBUG=true TAG=$VERSION make
 ```
 
