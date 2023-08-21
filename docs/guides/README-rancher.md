@@ -16,11 +16,6 @@ export VERSION=v2.6.5-dbg
 DEBUG=true TAG=$VERSION make
 ```
 
-NOTE: currently make support for debug symbols is under review: https://github.com/rancher/rancher/pull/38867
-
-
-A 2.6.5 fork with the patch is available here: https://github.com/moio/rancher/tree/v2.6.5-dbg
-
 6. either push built images onto a registry, or import them into your cluster nodes manually. If you are using [k3d](https://k3d.io):
 
 ```shell
