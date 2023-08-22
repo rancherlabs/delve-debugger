@@ -26,10 +26,10 @@ k3d image import --mode direct --cluster $CLUSTER $(cat ./dist/images)
 7. upgrade the installation to the latest build
 
 ```shell
-helm -n cattle-system upgrade --version $VERSION --reuse-values --set rancherImageTag=$VERSION rancher ./bin/chart/dev/$(ls -t ./bin/chart/dev | head -n1)
+helm -n cattle-system upgrade --version $VERSION --reuse-values --set rancherImageTag=$VERSION --set-json 'extraEnv=[{"name":"CATTLE_DEV_MODE","value":"true"}]' rancher ./bin/chart/dev/$(ls -t ./bin/chart/dev | head -n1)
 ```
 
-8. edit the `rancher` deployment and set the `CATTLE_DEV_MODE` environment variable to `'true'`
+(make sure you add any additional `extraEnv` you might want to the command above, as they are overridden)
 
 9. run
 ```shell
