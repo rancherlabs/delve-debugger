@@ -29,7 +29,9 @@ k3d image import --mode direct --cluster $CLUSTER $(cat ./dist/images)
 helm -n cattle-system upgrade --version $VERSION --reuse-values --set rancherImageTag=$VERSION rancher ./bin/chart/dev/$(ls -t ./bin/chart/dev | head -n1)
 ```
 
-8. run
+8. edit the `rancher` deployment and set the `CATTLE_DEV_MODE` environment variable to `'true'`
+
+9. run
 ```shell
 ./util/debug-rancher.sh
 ```
