@@ -13,7 +13,7 @@ helm --namespace cattle-system list
 ```
 cd rancher
 export VERSION=v2.7.5-dbg
-DEBUG=true TAG=$VERSION make
+DEBUG=true TAG=$VERSION make quick
 ```
 
 6. either push built images onto a registry, or import them into your cluster nodes manually. If you are using [k3d](https://k3d.io):
