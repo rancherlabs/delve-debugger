@@ -1,6 +1,8 @@
-include versions
-
 IMAGE_NAME=ghcr.io/moio/delve-debugger
+
+GO_VERSION := $(shell grep '^ARG GO_VERSION=' package/Dockerfile | cut -d'=' -f2)
+DLV_VERSION := $(shell grep '^ARG DLV_VERSION=' package/Dockerfile | cut -d'=' -f2)
+DELVE_DEBUGGER_VERSION := $(shell grep '^ARG DELVE_DEBUGGER_VERSION=' package/Dockerfile | cut -d'=' -f2)
 
 K3D_IMPORT_CLUSTER=upstream
 
