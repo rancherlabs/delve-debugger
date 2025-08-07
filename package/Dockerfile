@@ -1,4 +1,4 @@
-FROM registry.suse.com/suse/sle15:15.4
+FROM registry.suse.com/suse/sle15:15.7
 
 ARG GO_VERSION
 ARG DLV_VERSION
