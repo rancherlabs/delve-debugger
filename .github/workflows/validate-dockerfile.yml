@@ -1,0 +1,39 @@
+name: Validate Dockerfile
+
+on:
+  pull_request:
+    paths:
+      - 'package/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'package/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Dockerfile validation
+        run: |
+          cd package
+          chmod +x test-dockerfile.sh
+          ./test-dockerfile.sh
+
+      - name: Set up QEMU (for multi-arch build test)
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Test Docker build
+        uses: docker/build-push-action@v5
+        with:
+          context: "{{defaultContext}}:package"
+          platforms: linux/amd64,linux/arm64
+          push: false
+          tags: |
+            delve-debugger:test
