@@ -11,3 +11,19 @@ build:
 
 import: build
 	k3d image import --mode direct --cluster $(K3D_IMPORT_CLUSTER) $(IMAGE_NAME):$(DLV_VERSION)-$(DELVE_DEBUGGER_VERSION)
+
+# Build the test target image
+test-build-target:
+	docker build -t delve-debugger-test-target:latest test/testprogram/
+
+# Run Docker e2e test only
+test-e2e-docker: build test-build-target
+	bash test/e2e-docker.sh
+
+# Run k3d e2e test only (requires k3d)
+test-e2e-k3d: build test-build-target
+	bash test/e2e-k3d.sh
+
+# Run all e2e tests
+test-e2e: build test-build-target
+	bash test/e2e-docker.sh && bash test/e2e-k3d.sh
