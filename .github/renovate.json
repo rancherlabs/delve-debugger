@@ -37,8 +37,8 @@
     },
     {
       "description": "Delve updates — require manual review for Go compat",
-      "matchPackageNames": [
-        "github.com/go-delve/delve"
+      "matchDepNames": [
+        "go-delve/delve"
       ],
       "automerge": false,
       "prBodyNotes": [
@@ -77,8 +77,8 @@
       "matchStrings": [
         "ARG DLV_VERSION=(?<currentValue>\\d+\\.\\d+\\.\\d+)\\n"
       ],
-      "depNameTemplate": "github.com/go-delve/delve",
-      "datasourceTemplate": "go",
+      "depNameTemplate": "go-delve/delve",
+      "datasourceTemplate": "github-releases",
       "extractVersionTemplate": "^v(?<version>.*)$"
     },
     {
