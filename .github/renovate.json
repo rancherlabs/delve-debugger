@@ -10,19 +10,25 @@
   "packageRules": [
     {
       "description": "Group all GitHub Actions updates into a single PR",
-      "matchManagers": ["github-actions"],
+      "matchManagers": [
+        "github-actions"
+      ],
       "groupName": "github-actions",
       "automerge": true
     },
     {
       "description": "Group SLE base image updates across all Dockerfiles",
-      "matchPackageNames": ["registry.suse.com/suse/sle15"],
+      "matchPackageNames": [
+        "registry.suse.com/suse/sle15"
+      ],
       "groupName": "sle-base-image",
       "automerge": false
     },
     {
       "description": "Group Go version updates across all Dockerfiles",
-      "matchDepNames": ["golang-sle"],
+      "matchDepNames": [
+        "golang-sle"
+      ],
       "groupName": "go-version",
       "automerge": false,
       "prBodyNotes": [
@@ -31,7 +37,9 @@
     },
     {
       "description": "Delve updates — require manual review for Go compat",
-      "matchPackageNames": ["github.com/go-delve/delve"],
+      "matchPackageNames": [
+        "github.com/go-delve/delve"
+      ],
       "automerge": false,
       "prBodyNotes": [
         "**Go compatibility**: Check Delve's release notes for supported Go versions. The SLE-packaged Go version must be within Delve's supported range."
@@ -39,7 +47,9 @@
     },
     {
       "description": "k3d CLI updates",
-      "matchDepNames": ["k3d-io/k3d"],
+      "matchDepNames": [
+        "k3d-io/k3d"
+      ],
       "automerge": false
     }
   ],
@@ -47,8 +57,12 @@
     {
       "customType": "regex",
       "description": "Track Go version ARG in all Dockerfiles (signal only — SLE availability must be verified manually)",
-      "fileMatch": ["(^|/)Dockerfile$"],
-      "matchStrings": ["ARG GO_VERSION=(?<currentValue>\\d+\\.\\d+)\\n"],
+      "managerFilePatterns": [
+        "/(^|/)Dockerfile$/"
+      ],
+      "matchStrings": [
+        "ARG GO_VERSION=(?<currentValue>\\d+\\.\\d+)\\n"
+      ],
       "depNameTemplate": "golang-sle",
       "packageNameTemplate": "golang",
       "datasourceTemplate": "docker",
@@ -57,8 +71,12 @@
     {
       "customType": "regex",
       "description": "Track Delve version ARG in Dockerfile",
-      "fileMatch": ["^package/Dockerfile$"],
-      "matchStrings": ["ARG DLV_VERSION=(?<currentValue>\\d+\\.\\d+\\.\\d+)\\n"],
+      "managerFilePatterns": [
+        "/^package/Dockerfile$/"
+      ],
+      "matchStrings": [
+        "ARG DLV_VERSION=(?<currentValue>\\d+\\.\\d+\\.\\d+)\\n"
+      ],
       "depNameTemplate": "github.com/go-delve/delve",
       "datasourceTemplate": "go",
       "extractVersionTemplate": "^v(?<version>.*)$"
@@ -66,8 +84,12 @@
     {
       "customType": "regex",
       "description": "Track k3d version in e2e workflow",
-      "fileMatch": ["^\\.github/workflows/e2e\\.yml$"],
-      "matchStrings": ["# renovate: datasource=github-releases depName=k3d-io/k3d\\n.*TAG=v(?<currentValue>\\d+\\.\\d+\\.\\d+)"],
+      "managerFilePatterns": [
+        "/^\\.github/workflows/e2e\\.yml$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=github-releases depName=k3d-io/k3d\\n.*TAG=v(?<currentValue>\\d+\\.\\d+\\.\\d+)"
+      ],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "k3d-io/k3d",
       "extractVersionTemplate": "^v(?<version>.*)$"
