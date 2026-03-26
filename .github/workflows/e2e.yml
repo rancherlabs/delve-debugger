@@ -24,6 +24,7 @@ jobs:
       - name: Allow ptrace
         run: sudo sysctl -w kernel.yama.ptrace_scope=0
       - name: Install k3d
-        run: curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+        # renovate: datasource=github-releases depName=k3d-io/k3d
+        run: curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | TAG=v5.8.3 bash
       - name: Run k3d e2e test
         run: make test-e2e-k3d
