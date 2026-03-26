@@ -19,7 +19,7 @@ if (( ${USER_ID} != 0 )); then
 fi
 
 if (( ${GROUP_ID} != 0 )); then
-    groupadd -g ${GROUP_ID} debugger
+    groupadd -g ${GROUP_ID} debugger 2>/dev/null || true
 fi
 
 echo 'root    ALL=(ALL:ALL) ALL' >> /etc/sudoers
