@@ -1,6 +1,6 @@
 FROM registry.suse.com/suse/sle15:15.7 AS build
 
-ARG GO_VERSION=1.24
+ARG GO_VERSION=1.25
 
 RUN zypper --non-interactive install --no-recommends go${GO_VERSION}
 
