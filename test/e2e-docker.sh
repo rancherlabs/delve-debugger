@@ -46,7 +46,6 @@ docker run -d \
   --pid=container:delve-test-target \
   --env EXECUTABLE=testprogram \
   --publish $E2E_HOST_PORT:4000/tcp \
-  --rm \
   "$DELVE_DEBUGGER_IMAGE:$DELVE_DEBUGGER_TAG"
 
 # Wait for Delve to be ready
