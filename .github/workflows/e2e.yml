@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Allow ptrace
+        run: sudo sysctl -w kernel.yama.ptrace_scope=0
       - name: Run Docker e2e test
         run: make test-e2e-docker
 
@@ -19,6 +21,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Allow ptrace
+        run: sudo sysctl -w kernel.yama.ptrace_scope=0
       - name: Install k3d
         run: curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
       - name: Run k3d e2e test
