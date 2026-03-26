@@ -6,7 +6,7 @@
   "baseBranchPatterns": [
     "master"
   ],
-  "prHourlyLimit": 2,
+  "prHourlyLimit": 20,
   "packageRules": [
     {
       "description": "Group all GitHub Actions updates into a single PR",
