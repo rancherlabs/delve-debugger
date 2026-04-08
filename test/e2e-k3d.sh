@@ -9,6 +9,7 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 E2E_K3D_API_PORT="${E2E_K3D_API_PORT:-6443}"
 E2E_K3D_DLV_PORT="${E2E_K3D_DLV_PORT:-14000}"
 E2E_TIMEOUT="${E2E_TIMEOUT_K3D:-90}"
+E2E_POD_READY_TIMEOUT="${E2E_POD_READY_TIMEOUT:-60s}"
 
 # Image names
 DELVE_DEBUGGER_IMAGE="ghcr.io/moio/delve-debugger"
@@ -43,6 +44,7 @@ echo "=== k3d E2E Test ==="
 echo "API port: $E2E_K3D_API_PORT"
 echo "Delve port: $E2E_K3D_DLV_PORT"
 echo "Timeout: ${E2E_TIMEOUT}s"
+echo "Pod ready timeout: $E2E_POD_READY_TIMEOUT"
 echo ""
 
 # Create k3d cluster with a fixed API port (needed when Docker runs on a remote host)
@@ -62,8 +64,17 @@ echo "Deploying target pod..."
 kubectl apply -f "$SCRIPT_DIR/k8s/target-pod.yaml"
 
 # Wait for pod to be ready
-echo "Waiting for target pod to be ready..."
-kubectl wait --for=condition=ready pod/delve-test-target --timeout=60s
+echo "Waiting for target pod to be ready (timeout: ${E2E_POD_READY_TIMEOUT})..."
+if kubectl wait --for=condition=ready pod/delve-test-target --timeout="$E2E_POD_READY_TIMEOUT"; then
+  echo "Target pod is ready"
+else
+  echo "✗ Target pod did not become ready within ${E2E_POD_READY_TIMEOUT}"
+  echo "--- kubectl describe pod ---"
+  kubectl describe pod/delve-test-target 2>&1 || true
+  echo "--- kubectl get events ---"
+  kubectl get events --sort-by='.lastTimestamp' 2>&1 || true
+  exit 1
+fi
 
 # Attach ephemeral debug container (no -it since we run in background)
 echo "Attaching ephemeral debug container..."
