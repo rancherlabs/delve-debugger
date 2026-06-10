@@ -22,7 +22,7 @@
         "registry.suse.com/suse/sle15"
       ],
       "groupName": "sle-base-image",
-      "automerge": false
+      "automerge": true
     },
     {
       "description": "Group Go version updates across all Dockerfiles",
@@ -30,7 +30,7 @@
         "golang-sle"
       ],
       "groupName": "go-version",
-      "automerge": false,
+      "automerge": true,
       "prBodyNotes": [
         "**SLE constraint**: Before merging, verify that SLE repos ship this Go version. Go is installed via `zypper install go${GO_VERSION}`, so only SLE-packaged versions are valid."
       ]
@@ -50,7 +50,7 @@
       "matchDepNames": [
         "k3d-io/k3d"
       ],
-      "automerge": false
+      "automerge": true
     }
   ],
   "customManagers": [
