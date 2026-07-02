@@ -1,7 +1,7 @@
 FROM registry.suse.com/suse/sle15:15.7
 
 ARG GO_VERSION=1.26
-ARG DLV_VERSION=1.26.3
+ARG DLV_VERSION=1.27.0
 ARG DELVE_DEBUGGER_VERSION=0
 
 RUN zypper --non-interactive install --no-recommends go${GO_VERSION} git sudo procps
