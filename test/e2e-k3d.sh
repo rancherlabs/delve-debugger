@@ -55,9 +55,19 @@ k3d cluster create delve-e2e-test --no-lb --wait --api-port "0.0.0.0:$E2E_K3D_AP
 # (avoids IPv6 resolution issues when Docker runs on a remote host with IPv4-only port forwarding)
 kubectl config set-cluster k3d-delve-e2e-test --server="https://127.0.0.1:$E2E_K3D_API_PORT"
 
+# Wait for the Kubernetes API and nodes to be ready before importing images
+# (k3d --wait returns as soon as the server is up, but containerd may not yet be fully ready)
+echo "Waiting for cluster nodes to be ready..."
+kubectl wait --for=condition=Ready nodes --all --timeout=120s
+
 # Import images
 echo "Importing images into k3d..."
 k3d image import --cluster delve-e2e-test "$DELVE_DEBUGGER_IMAGE:$DELVE_DEBUGGER_TAG" "$TEST_TARGET_IMAGE"
+
+# Wait for nodes to be ready again after image import before applying manifests
+# (image import can briefly disturb containerd, causing transient API unavailability)
+echo "Waiting for cluster nodes to be ready after image import..."
+kubectl wait --for=condition=Ready nodes --all --timeout=120s
 
 # Deploy target pod
 echo "Deploying target pod..."
