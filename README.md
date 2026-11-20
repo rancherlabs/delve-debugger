@@ -57,3 +57,7 @@ Could not attach to pid 1: this could be caused by a kernel security setting, tr
 ```
 
 **A**: `/proc/sys/kernel/yama/ptrace_scope` is a host (node) kernel setting, its default value depends on your distro and configuration. You can change it as suggested via `echo 0 >/proc/sys/kernel/yama/ptrace_scope` as `root` on the node running the delve pod. If you do not have `root` shell access to the node but can run privileged containers, please [refer to these instructions](https://gist.github.com/moio/97c55fd742f407e294d370e4f4876f96).
+
+## License
+
+[Apache-2.0](./LICENSE.txt) — Copyright 2022-2026 SUSE LLC
