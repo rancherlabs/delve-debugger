@@ -61,8 +61,12 @@ echo "Waiting for cluster nodes to be ready..."
 kubectl wait --for=condition=Ready nodes --all --timeout=120s
 
 # Import images
+# --mode direct streams docker save output straight into the node container,
+# avoiding the k3d-tools tarball dance whose ingest stream can truncate,
+# killing the import while k3d still reports success (seen in CI run 45821845971)
+# It also matches the Makefile's `import` target.
 echo "Importing images into k3d..."
-k3d image import --cluster delve-e2e-test "$DELVE_DEBUGGER_IMAGE:$DELVE_DEBUGGER_TAG" "$TEST_TARGET_IMAGE"
+k3d image import --mode direct --cluster delve-e2e-test "$DELVE_DEBUGGER_IMAGE:$DELVE_DEBUGGER_TAG" "$TEST_TARGET_IMAGE"
 
 # Wait for nodes to be ready again after image import before applying manifests
 # (image import can briefly disturb containerd, causing transient API unavailability)
