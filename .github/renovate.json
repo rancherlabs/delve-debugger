@@ -9,6 +9,10 @@
   "prHourlyLimit": 20,
   "packageRules": [
     {
+      "description": "Automerge every update of every dependency — patch, minor, major, digest, pin, rollback — e2e CI is the only gate; the preset's minimumReleaseAge soak still applies",
+      "automerge": true
+    },
+    {
       "description": "Automerged federated config updates use versionless PR titles, so a following update must not be blocked by the merged one",
       "matchManagers": [
         "github-actions"
@@ -25,8 +29,7 @@
       "matchPackageNames": [
         "registry.suse.com/suse/sle15"
       ],
-      "groupName": "sle-base-image",
-      "automerge": true
+      "groupName": "sle-base-image"
     },
     {
       "description": "Group Go version updates across all Dockerfiles",
@@ -34,33 +37,24 @@
         "golang-sle"
       ],
       "groupName": "go-version",
-      "automerge": true,
       "prBodyNotes": [
-        "**SLE constraint**: Before merging, verify that SLE repos ship this Go version. Go is installed via `zypper install go${GO_VERSION}`, so only SLE-packaged versions are valid."
+        "**SLE constraint**: Go is installed via `zypper install go${GO_VERSION}`, so only versions packaged in the SLE repos are valid. An automerged bump that fails e2e usually means SLE has not shipped the version yet."
       ]
     },
     {
-      "description": "Delve updates — require manual review for Go compat",
+      "description": "Delve updates carry a Go-compat note; automerge is governed by the repository-wide rule above",
       "matchDepNames": [
         "go-delve/delve"
       ],
-      "automerge": false,
       "prBodyNotes": [
-        "**Go compatibility**: Check Delve's release notes for supported Go versions. The SLE-packaged Go version must be within Delve's supported range."
+        "**Go compatibility**: Delve's supported Go range must include the SLE-packaged Go version; e2e CI validates the pair when automerging."
       ]
-    },
-    {
-      "description": "k3d CLI updates",
-      "matchDepNames": [
-        "k3d-io/k3d"
-      ],
-      "automerge": true
     }
   ],
   "customManagers": [
     {
       "customType": "regex",
-      "description": "Track Go version ARG in all Dockerfiles (signal only — SLE availability must be verified manually)",
+      "description": "Track Go version ARG in all Dockerfiles (SLE availability is enforced by e2e CI: the build fails if zypper cannot install the version)",
       "managerFilePatterns": [
         "/(^|/)Dockerfile$/"
       ],
