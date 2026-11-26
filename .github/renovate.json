@@ -9,11 +9,15 @@
   "prHourlyLimit": 20,
   "packageRules": [
     {
-      "description": "Group all GitHub Actions updates into a single PR",
+      "description": "Automerged federated config updates use versionless PR titles, so a following update must not be blocked by the merged one",
       "matchManagers": [
         "github-actions"
       ],
+      "matchPackageNames": [
+        "rancher/renovate-config"
+      ],
       "groupName": "github-actions",
+      "recreateWhen": "always",
       "automerge": true
     },
     {
