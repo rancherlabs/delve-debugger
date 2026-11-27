@@ -10,6 +10,7 @@
   "packageRules": [
     {
       "description": "Automerge every update of every dependency — patch, minor, major, digest, pin, rollback — e2e CI is the only gate; the preset's minimumReleaseAge soak still applies",
+      "matchUpdateTypes": ["major", "minor", "patch", "digest", "pin", "pinDigest", "rollback", "bump"],
       "automerge": true
     },
     {
